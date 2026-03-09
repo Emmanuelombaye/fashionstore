@@ -125,6 +125,10 @@ export function Home() {
                 to: '/shop/men',
                 gradient: 'from-blue-600 to-blue-800',
                 icon: ShoppingBag,
+                images: [
+                  'https://images.unsplash.com/photo-1617137968427-85924c800a22?w=800&q=80',
+                  'https://images.unsplash.com/photo-1516826957135-700ede19c6ce?w=800&q=80'
+                ]
               },
               {
                 title: "Women's Fashion",
@@ -132,6 +136,10 @@ export function Home() {
                 to: '/shop/women',
                 gradient: 'from-pink-600 to-pink-800',
                 icon: Sparkles,
+                images: [
+                  'https://images.unsplash.com/photo-1515347619152-6d1af889602f?w=800&q=80',
+                  'https://images.unsplash.com/photo-1525507119028-ed4c629a60a3?w=800&q=80'
+                ]
               },
               {
                 title: 'Shoes Collection',
@@ -139,6 +147,10 @@ export function Home() {
                 to: '/shop/shoes',
                 gradient: 'from-purple-600 to-purple-800',
                 icon: TrendingUp,
+                images: [
+                  'https://images.unsplash.com/photo-1549298916-b41d501d3772?w=800&q=80',
+                  'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=800&q=80'
+                ]
               },
             ].map((category, index) => (
               <motion.div
@@ -148,17 +160,33 @@ export function Home() {
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
                 whileHover={{ scale: 1.05, y: -5 }}
-                className="group"
+                className="group relative"
               >
                 <Link
                   to={category.to}
-                  className={`block relative h-64 rounded-2xl overflow-hidden bg-gradient-to-br ${category.gradient} p-8 shadow-lg hover:shadow-2xl transition-shadow`}
+                  className="block relative h-64 rounded-2xl overflow-hidden p-8 shadow-lg hover:shadow-2xl transition-shadow"
                 >
-                  <div className="relative z-10 h-full flex flex-col justify-between text-white">
+                  <div className="absolute inset-0">
+                    <motion.div
+                      animate={{ opacity: [1, 0, 1] }}
+                      transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+                      className="absolute inset-0 bg-cover bg-center"
+                      style={{ backgroundImage: `url(${category.images[0]})` }}
+                    />
+                    <motion.div
+                      animate={{ opacity: [0, 1, 0] }}
+                      transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+                      className="absolute inset-0 bg-cover bg-center"
+                      style={{ backgroundImage: `url(${category.images[1]})` }}
+                    />
+                    <div className={`absolute inset-0 bg-gradient-to-br ${category.gradient} opacity-70 group-hover:opacity-80 transition-opacity`} />
+                  </div>
+                  
+                  <div className="relative z-10 h-full flex flex-col justify-between text-white drop-shadow-md">
                     <category.icon className="w-12 h-12 mb-4" />
                     <div>
                       <h3 className="text-2xl font-bold mb-2">{category.title}</h3>
-                      <p className="text-white/80 mb-4">{category.description}</p>
+                      <p className="text-white/90 mb-4">{category.description}</p>
                       <span className="inline-flex items-center gap-2 text-sm font-semibold group-hover:gap-3 transition-all">
                         Explore Collection
                         <ArrowRight className="w-4 h-4" />
